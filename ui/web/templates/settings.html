@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Settings - Work Report{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Settings</h2>
+  <p>Secrets (Slack, OpenAI) are read from the <code>.env</code> file in the project root. Edit that file and restart the app to change them.</p>
+  <p>
+    <strong>Report time:</strong> {{ report_time }} (24h)<br>
+    <strong>Timezone:</strong> {{ timezone }}
+  </p>
+  <p>
+    Slack webhook: <span class="badge {{ 'badge-on' if webhook_configured else 'badge-off' }}">{{ 'Configured' if webhook_configured else 'Not set' }}</span><br>
+    OpenAI API key: <span class="badge {{ 'badge-on' if openai_configured else 'badge-off' }}">{{ 'Configured' if openai_configured else 'Not set' }}</span>
+  </p>
+  <p>To change report time or timezone, update <code>REPORT_TIME</code> and <code>TIMEZONE</code> in <code>.env</code> and restart.</p>
+</div>
+{% endblock %}

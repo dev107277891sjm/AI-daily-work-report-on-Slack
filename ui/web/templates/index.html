@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Work Report{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Status</h2>
+  <p>
+    Tracking:
+    <span class="badge {{ 'badge-on' if tracking else 'badge-off' }}">
+      {{ 'On' if tracking else 'Off' }}
+    </span>
+  </p>
+  <p>
+    <button class="btn" onclick="toggleTracking()">Turn {{ 'Off' if tracking else 'On' }} tracking</button>
+    <button class="btn btn-secondary" onclick="sendReport()" style="margin-left: 0.5rem;">Send report now</button>
+  </p>
+  {% if last_report %}
+  <p>Last report: <strong>{{ last_report.report_date.isoformat() }}</strong>
+    {% if last_report.sent_at %} (sent {{ last_report.sent_at.strftime('%Y-%m-%d %H:%M') }}){% endif %}
+  </p>
+  <p><a href="{{ url_for('report_detail', report_id=last_report.id) }}">View last report</a></p>
+  {% else %}
+  <p>No reports yet.</p>
+  {% endif %}
+</div>
+<div class="card">
+  <p><a href="{{ url_for('reports_list') }}">View all past reports</a> · <a href="{{ url_for('activity') }}">View activity by date</a></p>
+</div>
+<script>
+  function toggleTracking() {
+    fetch('{{ url_for("api_tracking") }}', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+      .then(r => r.json()).then(d => { if (d.ok) location.reload(); });
+  }
+  function sendReport() {
+    fetch('{{ url_for("api_send_report") }}', { method: 'POST', headers: { 'Content-Type': 'application/json' } })
+      .then(r => r.json()).then(d => { alert(d.message || (d.ok ? 'Done' : 'Error')); if (d.ok) location.reload(); });
+  }
+</script>
+{% endblock %}

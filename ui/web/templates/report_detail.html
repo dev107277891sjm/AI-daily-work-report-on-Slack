@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Report {{ report.report_date }} - Work Report{% endblock %}
+{% block content %}
+<div class="card">
+  <h2>Report for {{ report.report_date.isoformat() }}</h2>
+  {% if report.sent_at %}
+  <p style="color: var(--muted);">Sent at {{ report.sent_at.strftime('%Y-%m-%d %H:%M') }}</p>
+  {% endif %}
+  <div style="white-space: pre-wrap;">{{ report.report_text }}</div>
+</div>
+<p><a href="{{ url_for('reports_list') }}">← Back to reports</a></p>
+{% endblock %}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Work Report{% endblock %}</title>
+  <style>
+    :root {
+      --bg: #1a1b26;
+      --surface: #24283b;
+      --text: #c0caf5;
+      --muted: #565f89;
+      --accent: #7aa2f7;
+      --success: #9ece6a;
+      --danger: #f7768e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 1.5rem;
+      line-height: 1.5;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    nav {
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--surface);
+    }
+    nav a { margin-right: 1rem; }
+    .card {
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .badge { display: inline-block; padding: 0.2em 0.5em; border-radius: 4px; font-size: 0.9em; }
+    .badge-on { background: var(--success); color: var(--bg); }
+    .badge-off { background: var(--muted); color: var(--text); }
+    .btn {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn-secondary { background: var(--muted); color: var(--text); }
+    form label { display: block; margin-top: 0.5rem; }
+    form input, form select { padding: 0.4rem; border-radius: 4px; border: 1px solid var(--muted); background: var(--bg); color: var(--text); }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('index') }}">Dashboard</a>
+    <a href="{{ url_for('reports_list') }}">Past reports</a>
+    <a href="{{ url_for('activity') }}">Activity</a>
+    <a href="{{ url_for('settings_page') }}">Settings</a>
+  </nav>
+  {% block content %}{% endblock %}
+</body>
+</html>
