@@ -55,6 +55,28 @@ A Windows desktop app that tracks active window usage in real time, stores data 
    - A tray icon appears; use it to open the dashboard, start/stop tracking, send a report now, or quit.
    - Open **http://127.0.0.1:5050** (or your `WEB_UI_PORT`) for the web UI.
 
+### Windows: "Running scripts is disabled" (PowerShell)
+
+If `.venv\Scripts\activate` fails in PowerShell, use one of these:
+
+- **Option A — Use the venv without activating** (any shell):
+  ```bash
+  .venv\Scripts\python.exe -m scripts.init_db
+  .venv\Scripts\python.exe main.py
+  ```
+- **Option B — Use Command Prompt (cmd)** and run:
+  ```bash
+  .venv\Scripts\activate.bat
+  pip install -r requirements.txt
+  python -m scripts.init_db
+  python main.py
+  ```
+- **Option C — Allow scripts for your user** (PowerShell once):
+  ```powershell
+  Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+  ```
+  Then `.venv\Scripts\activate` will work in PowerShell.
+
 ## Project structure
 
 - `config/settings.py` — Loads and validates settings from `.env`.
